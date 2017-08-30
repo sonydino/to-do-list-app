@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
+    p{
+    word-spacing: 30px;
+    }
+    #todo-container{
+    height: calc(650px);
+    }
+    body, html{
+    height: 100%;
+    min-height: 100%;
+    }
+    footer.todo-footer{
+    height:30px;
+    }
+    table.table-striped{
+      height:40px;
+    }
+    </style>
+  </head>
+  <body>
+  <div class="container-fluid" id="todo-container" style="width: 76%">
+      <center>
+      <span class="container-fluid"><font size="5" color="green"><i><b> To-Do-List</i></b></font></span>
+
+    
+    
+      
+      <hr style="height: 1px;width: 100%;color: #333;background-color: #333;"/>
+      </center>
+      
+      <br>
+
+
+      <div class="inputwrap" style="width: 1100px; margin-left: 35%">
+      <span class="inputwrap">Title:</span>
+    <input class="rounded2" name="title" id="text_title" type="text" />
+    <span class="inputwrap">Priority</span>
+    <select class="dropdown" id="button_dropdown">
+            <option  style = "background-color: red">High</option>
+            <option class="btn btn-info">Medium</option>
+            <option class="btn btn-success">Low</option>
+    </select>
+    <span class="inputwrap"></span>
+    <button class="btn btn-success" onclick="takeInputs()" value="Submit">Add</button>
+
+</div>
+
+
+
+
+
+
+     
+      
+      
+      <br><br>
+      
+      <table align="center" style="width: 1150px" class="table table-striped" >
+        <thead>
+          <tr>
+            <!-- <th>#</th> -->
+            <th>Done</th>
+            <th>Title</th>
+            <th>Priority</th>
+            <th>Action</th>
+            
+          </tr>
+        </thead>
+        <tbody id="tbody">
+        </tbody>
+      </table>
+    </div>
+    
+    <footer class="footer todo-footer">
+      <center>
+      <hr style="border-top: 2px dotted black" width="74%" />Powered by Aconex
+      </center>
+    </footer>
+    
+    <script type="text/javascript">
+    function add(type,title1,dropdown_value,done_value,list,current_element) {
+    
+    var delete_button = document.createElement("input");
+    delete_button.type = "button";
+    delete_button.value = "Delete";
+    delete_button.name = type;
+    var done_button = document.createElement("input");
+    done_button.type = "checkbox";
+    done_button.value = "NotDone";
+    done_button.name = type;
+    if(done_value!=null){
+    done_button.checked="checked";
+    }
+    
+    var title = document.createElement("P");
+    var textNode_1 = document.createTextNode(title1);
+    title.appendChild(textNode_1);
+    var priority = document.createElement("P");
+    var textNode_2 = document.createTextNode(dropdown_value);
+    priority.appendChild(textNode_2);
+    delete_button.onclick = function() {
+    var length_of_list=list.length;
+    var index;
+    for(index=0;index<length_of_list;index++){
+    if(title1===list[index].title){
+    break;
+    }
+    }
+    list.splice(index,1);
+    localStorage.setItem('task0',JSON.stringify(list));
+    window.location="file:///C:/Users/sjoseph/Desktop/Assignment1/index.htm";
+    };
+    done_button.onclick=function(){
+
+        
+    if(list[current_element].done_value!="Done"){
+    mytr.style.color="#c9c9c9";
+    list[current_element].done_value="Done";
+    }
+    
+    else{
+    list[current_element].done_value=null;
+    mytr.style.color="";
+    }
+    localStorage.setItem('task0',JSON.stringify(list));
+    }
+    var mytr = document.createElement('tr');
+    var tbody=document.getElementById("tbody");
+    var mytd1=document.createElement('td');
+    var mytd2=document.createElement('td');
+    var mytd3=document.createElement('td');
+    var mytd4=document.createElement('td');
+    tbody.appendChild(mytr);
+    mytr.appendChild(mytd1);
+    mytr.appendChild(mytd2);
+    mytr.appendChild(mytd3);
+    mytr.appendChild(mytd4);
+    mytd2.appendChild(title);
+    mytd3.appendChild(priority);
+    mytd4.appendChild(delete_button);
+    mytd1.appendChild(done_button);
+    if(done_value != null){
+    mytr.style.color = "#c9c9c9";
+    }
+    
+    }
+    var temp=localStorage.getItem('task0');
+    temp=JSON.parse(temp);
+    temp.sort(function(a,b){
+    var priority_1=a.dropdown_value.toLowerCase();
+    if(priority_1==='low') priority_1="zzzz";
+    var priority_2=b.dropdown_value.toLowerCase();
+    if(priority_2==='low') priority_2="zzzz";
+    if(priority_1<=priority_2)  return -1;
+    return 1;
+    });
+    var l=temp.length;
+    for(var i=0;i<l;i++){
+    add("text",temp[i].title,temp[i].dropdown_value,temp[i].done_value,temp,i);
+    }
+    
+    </script>
+    <script type="text/javascript"  src="js/localStorage.js"></script>
+  </body>
+</html>
