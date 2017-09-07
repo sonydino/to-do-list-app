@@ -54,7 +54,15 @@
 		.table-responsive{
 			height: 500px;
 		}
-
+		.pri_1{
+			background-color: red;
+		}
+		.pri_2{
+			background-color: blue;
+		}
+		.pri_3{
+			background-color: green;
+		}
 
 
 

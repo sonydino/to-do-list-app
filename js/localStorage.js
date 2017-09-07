@@ -35,7 +35,7 @@ function AddItems(){
 		function localstore(obj){
 			list.push(obj);
 			localstorage.setItem('task0',JSON.stringify(list));
-			window.location="exp.htm";
+			window.location="index.htm";
 		}
 
 
@@ -80,7 +80,7 @@ function fetch_data_into_html(){
 			}
 			list.splice(index,1);
 			localstorage.setItem('task0',JSON.stringify(list));
-			window.location="exp.htm";
+			window.location="index.htm";
 		};
 	}
 
